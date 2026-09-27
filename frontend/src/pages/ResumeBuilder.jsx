@@ -2,11 +2,14 @@ import { useState } from "react";
 
 import ResumeForm from "../components/ResumeForm";
 import ResumePreview from "./ResumePreview";
-
 import { useResume } from "../services/ResumeContext";
 
 function ResumeBuilder() {
-  const { resume, setResume } = useResume();
+  const {
+    resume,
+    setResume,
+    saveResume,
+  } = useResume();
 
   const [showTemplateModal, setShowTemplateModal] =
     useState(false);
@@ -20,42 +23,38 @@ function ResumeBuilder() {
     setShowTemplateModal(false);
   };
 
+  // -----------------------------------------
+  // SAVE RESUME
+  // -----------------------------------------
   const handleSave = () => {
-    localStorage.setItem(
-      "savedResume",
-      JSON.stringify({
-        ...resume,
-        savedAt: new Date().toISOString(),
-      })
-    );
-
+    saveResume();
     alert("Resume saved successfully.");
   };
 
+  // -----------------------------------------
+  // TEMPLATE NAME
+  // -----------------------------------------
   const getTemplateName = () => {
     if (resume.template === "green") {
-      return "Professional Green";
+      return "Bistre Brown";
     }
 
     if (resume.template === "purple") {
-      return "Creative Purple";
+      return "White Chocolate";
     }
 
-    return "Modern Blue";
+    return "Red-Violet";
   };
 
   return (
     <div className="resume-builder">
 
       {/* ================= TOP SECTION ================= */}
-
       <div className="builder-top">
 
         <div className="builder-heading">
-
           <div>
             <h1>Resume Builder</h1>
-
             <p>
               Build your resume and customize its appearance.
             </p>
@@ -68,16 +67,11 @@ function ResumeBuilder() {
           >
             Save Resume
           </button>
-
         </div>
 
-
         {/* ================= CURRENT TEMPLATE ================= */}
-
         <div className="current-template-bar">
-
           <div className="current-template-info">
-
             <span className="current-template-label">
               TEMPLATE
             </span>
@@ -85,7 +79,6 @@ function ResumeBuilder() {
             <strong>
               {getTemplateName()}
             </strong>
-
           </div>
 
           <button
@@ -95,29 +88,22 @@ function ResumeBuilder() {
           >
             Change Template
           </button>
-
         </div>
-
       </div>
 
-
       {/* ================= TEMPLATE MODAL ================= */}
-
       {showTemplateModal && (
         <div
           className="template-modal-overlay"
           onClick={() => setShowTemplateModal(false)}
         >
-
           <div
             className="template-modal"
             onClick={(event) => event.stopPropagation()}
           >
 
             {/* Modal Header */}
-
             <div className="template-modal-header">
-
               <div>
                 <span className="modal-eyebrow">
                   RESUME DESIGN
@@ -141,16 +127,12 @@ function ResumeBuilder() {
               >
                 ×
               </button>
-
             </div>
 
-
             {/* Template Cards */}
-
             <div className="template-modal-options">
 
-              {/* ================= BLUE ================= */}
-
+              {/* ================= RED-VIOLET ================= */}
               <button
                 type="button"
                 className={`template-modal-option ${
@@ -161,54 +143,37 @@ function ResumeBuilder() {
                 }`}
                 onClick={() => changeTemplate("blue")}
               >
-
                 <div className="template-card-preview template-card-blue">
 
                   <div className="card-blue-sidebar">
-
                     <div className="card-avatar"></div>
-
                     <div className="card-small-line"></div>
                     <div className="card-small-line"></div>
                     <div className="card-small-line short"></div>
-
                     <div className="card-small-title"></div>
-
                     <div className="card-small-line"></div>
                     <div className="card-small-line"></div>
-
                   </div>
 
                   <div className="card-blue-main">
-
                     <div className="card-large-title"></div>
-
                     <div className="card-title-line"></div>
-
                     <div className="card-section-title"></div>
-
                     <div className="card-content-line"></div>
                     <div className="card-content-line"></div>
-
                     <div className="card-section-title"></div>
-
                     <div className="card-content-line"></div>
                     <div className="card-content-line short"></div>
-
                   </div>
 
                 </div>
 
-
                 <div className="template-modal-option-info">
-
                   <div>
-                    <strong>Modern Blue</strong>
+                    <strong>Red-Violet</strong>
 
-                    {(
-                      resume.template === "blue" ||
-                      !resume.template
-                    ) && (
+                    {(resume.template === "blue" ||
+                      !resume.template) && (
                       <span className="template-selected-badge">
                         Selected
                       </span>
@@ -225,14 +190,10 @@ function ResumeBuilder() {
                     <span>Bullets</span>
                     <span>Justified Text</span>
                   </div>
-
                 </div>
-
               </button>
 
-
-              {/* ================= GREEN ================= */}
-
+              {/* ================= BISTRE BROWN ================= */}
               <button
                 type="button"
                 className={`template-modal-option ${
@@ -242,54 +203,39 @@ function ResumeBuilder() {
                 }`}
                 onClick={() => changeTemplate("green")}
               >
-
                 <div className="template-card-preview template-card-green">
 
                   <div className="card-green-header">
-
                     <div className="card-green-name"></div>
-
                     <div className="card-green-contact"></div>
-
                   </div>
 
                   <div className="card-green-content">
-
                     <div className="card-section-title green"></div>
-
                     <div className="card-content-line"></div>
                     <div className="card-content-line"></div>
 
                     <div className="card-section-title green"></div>
-
                     <div className="card-content-line"></div>
                     <div className="card-content-line short"></div>
 
                     <div className="card-section-title green"></div>
-
                     <div className="card-content-line"></div>
                     <div className="card-content-line"></div>
                     <div className="card-content-line short"></div>
-
                   </div>
 
                 </div>
 
-
                 <div className="template-modal-option-info">
-
                   <div>
-
-                    <strong>
-                      Professional Green
-                    </strong>
+                    <strong>Bistre Brown</strong>
 
                     {resume.template === "green" && (
                       <span className="template-selected-badge">
                         Selected
                       </span>
                     )}
-
                   </div>
 
                   <p>
@@ -303,14 +249,10 @@ function ResumeBuilder() {
                     <span>ATS Style</span>
                     <span>Bullets</span>
                   </div>
-
                 </div>
-
               </button>
 
-
-              {/* ================= PURPLE ================= */}
-
+              {/* ================= WHITE CHOCOLATE ================= */}
               <button
                 type="button"
                 className={`template-modal-option ${
@@ -320,67 +262,48 @@ function ResumeBuilder() {
                 }`}
                 onClick={() => changeTemplate("purple")}
               >
-
                 <div className="template-card-preview template-card-purple">
 
                   <div className="card-purple-header">
-
                     <div className="card-purple-name"></div>
-
                     <div className="card-purple-contact"></div>
-
                   </div>
 
                   <div className="card-purple-body">
 
                     <div className="card-purple-main">
-
                       <div className="card-section-title purple"></div>
-
                       <div className="card-content-line"></div>
                       <div className="card-content-line"></div>
 
                       <div className="card-section-title purple"></div>
-
                       <div className="card-content-line"></div>
                       <div className="card-content-line short"></div>
-
                     </div>
 
                     <div className="card-purple-sidebar">
-
                       <div className="card-small-title purple"></div>
-
                       <div className="card-small-line"></div>
                       <div className="card-small-line"></div>
                       <div className="card-small-line short"></div>
 
                       <div className="card-small-title purple"></div>
-
                       <div className="card-small-line"></div>
                       <div className="card-small-line"></div>
-
                     </div>
 
                   </div>
-
                 </div>
 
-
                 <div className="template-modal-option-info">
-
                   <div>
-
-                    <strong>
-                      Creative Purple
-                    </strong>
+                    <strong>White Chocolate</strong>
 
                     {resume.template === "purple" && (
                       <span className="template-selected-badge">
                         Selected
                       </span>
                     )}
-
                   </div>
 
                   <p>
@@ -393,18 +316,13 @@ function ResumeBuilder() {
                     <span>Sidebar</span>
                     <span>Justified Text</span>
                   </div>
-
                 </div>
-
               </button>
 
             </div>
 
-
             {/* Modal Footer */}
-
             <div className="template-modal-footer">
-
               <span>
                 Select a template to apply it instantly.
               </span>
@@ -417,54 +335,38 @@ function ResumeBuilder() {
               >
                 Done
               </button>
-
             </div>
 
           </div>
-
         </div>
       )}
 
-
       {/* ================= BUILDER CONTENT ================= */}
-
       <div className="resume-builder-content">
 
         {/* Form */}
-
         <div className="builder-form">
-
           <ResumeForm
             resume={resume}
             setResume={setResume}
           />
-
         </div>
 
-
         {/* Preview */}
-
         <div className="builder-preview">
-
           <div className="preview-heading">
-
             <div>
-
               <h2>Live Preview</h2>
-
               <p>
                 Your resume updates automatically.
               </p>
-
             </div>
-
           </div>
 
           <ResumePreview
             resume={resume}
             showEditButton={false}
           />
-
         </div>
 
       </div>

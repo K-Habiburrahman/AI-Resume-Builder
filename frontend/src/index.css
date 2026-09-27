@@ -1,8 +1,3 @@
-/* =========================================================
-   BASE / RESET
-   ========================================================= */
-
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,8 +6,8 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #f3f4f6;
-  color: #111827;
+  background: #F7F2EE;
+  color: #241512;
 }
 
 button, input, textarea {
@@ -27,7 +22,7 @@ button, input, textarea {
 .sidebar {
   width: 240px;
   padding: 24px;
-  background: #111827;
+  background: #241512;
   color: white;
 }
 
@@ -48,20 +43,20 @@ button, input, textarea {
 
 .sidebar a {
   padding: 12px;
-  color: #d1d5db;
+  color: #DED1C8;
   text-decoration: none;
   border-radius: 8px;
 }
 
 .sidebar a.active {
-  background: #2563eb;
+  background: #651F18;
   color: white;
 }
 
 .main {
   flex: 1;
   min-width: 0;
-  background: #f3f4f6;
+  background: #F7F2EE;
 }
 
 .navbar {
@@ -71,7 +66,7 @@ button, input, textarea {
   align-items: center;
   justify-content: space-between;
   background: white;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #E8DED7;
 }
 
 .content {
@@ -89,7 +84,7 @@ button, input, textarea {
   padding: 25px;
   background: white;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
 }
 
 .card h3 {
@@ -117,14 +112,14 @@ button, input, textarea {
   width: 100%;
   padding: 12px;
   margin-bottom: 10px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #DED1C8;
   border-radius: 8px;
   font-size: 15px;
 }
 
 .resume-form input:focus, .resume-form textarea:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: #651F18;
 }
 
 .resume-form textarea {
@@ -137,14 +132,14 @@ button, input, textarea {
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   font-size: 15px;
   cursor: pointer;
 }
 
 .resume-form button:hover {
-  background: #1d4ed8;
+  background: #4A1712;
 }
 
 .resume-builder {
@@ -162,12 +157,12 @@ button, input, textarea {
 .builder-heading h1 {
   margin: 0 0 6px;
   font-size: 30px;
-  color: #111827;
+  color: #241512;
 }
 
 .builder-heading p {
   margin: 0;
-  color: #64748b;
+  color: #7D6B62;
   font-size: 14px;
 }
 
@@ -175,7 +170,7 @@ button, input, textarea {
   border: none;
   padding: 12px 20px;
   border-radius: 9px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   font-size: 14px;
   font-weight: 700;
@@ -184,15 +179,15 @@ button, input, textarea {
 }
 
 .save-resume-button:hover {
-  background: #1d4ed8;
+  background: #4A1712;
   transform: translateY(-1px);
 }
 
 .resume-import {
   margin-bottom: 30px;
   padding: 20px;
-  background: #f8fafc;
-  border: 1px solid #dbeafe;
+  background: #FAF6F2;
+  border: 1px solid #ECD2C2;
   border-radius: 10px;
 }
 
@@ -203,16 +198,16 @@ button, input, textarea {
 
 .resume-import p {
   margin-bottom: 15px;
-  color: #4b5563;
+  color: #6B5A52;
 }
 
 .import-button {
   margin-top: 0 !important;
-  background: #16a34a !important;
+  background: #928238 !important;
 }
 
 .import-button:hover {
-  background: #15803d !important;
+  background: #746519 !important;
 }
 
 .import-button:disabled {
@@ -224,7 +219,7 @@ button, input, textarea {
   margin-top: 12px !important;
   margin-bottom: 0 !important;
   font-size: 14px;
-  color: #166534 !important;
+  color: #6C6029 !important;
 }
 
 .validation-error {
@@ -256,7 +251,7 @@ button, input, textarea {
 }
 
 .dashboard-header p {
-  color: #6b7280;
+  color: #8A7A72;
 }
 
 .dashboard-interview-button {
@@ -264,14 +259,14 @@ button, input, textarea {
   padding: 11px 18px;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   font-size: 14px;
   cursor: pointer;
 }
 
 .dashboard-interview-button:hover {
-  background: #1d4ed8;
+  background: #4A1712;
 }
 
 .dashboard-section {
@@ -296,14 +291,14 @@ button, input, textarea {
   min-height: 145px;
   padding: 24px;
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 12px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .resume-action-card:hover {
-  border-color: #2563eb;
+  border-color: #651F18;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
@@ -314,7 +309,7 @@ button, input, textarea {
 }
 
 .resume-action-card p {
-  color: #6b7280;
+  color: #8A7A72;
   line-height: 1.5;
   font-size: 14px;
 }
@@ -332,18 +327,18 @@ button, input, textarea {
 }
 
 .new-icon {
-  background: #eff6ff;
-  color: #2563eb;
+  background: #F5E8E0;
+  color: #651F18;
 }
 
 .import-icon {
-  background: #f0fdf4;
-  color: #16a34a;
+  background: #F5F3E7;
+  color: #928238;
 }
 
 .template-icon {
-  background: #f5f3ff;
-  color: #7c3aed;
+  background: #F7ECE6;
+  color: #AA5C56;
 }
 
 .section-heading {
@@ -359,7 +354,7 @@ button, input, textarea {
 }
 
 .section-heading p {
-  color: #6b7280;
+  color: #8A7A72;
   font-size: 14px;
 }
 
@@ -372,15 +367,15 @@ button, input, textarea {
   width: 36px;
   height: 36px;
   padding: 0;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 7px;
   background: white;
-  color: #4b5563;
+  color: #6B5A52;
   cursor: pointer;
 }
 
 .view-controls button:hover {
-  background: #f3f4f6;
+  background: #F7F2EE;
 }
 
 .recent-resumes {
@@ -392,28 +387,28 @@ button, input, textarea {
 .recent-resume-card {
   overflow: hidden;
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 12px;
   transition: 0.2s;
 }
 
 .recent-resume-card:hover {
-  border-color: #cbd5e1;
+  border-color: #DDD0C8;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
 .resume-thumbnail {
   height: 250px;
   padding: 28px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e5e7eb;
+  background: #FAF6F2;
+  border-bottom: 1px solid #E8DED7;
 }
 
 .thumbnail-line {
   width: 75%;
   height: 5px;
   margin-bottom: 8px;
-  background: #d1d5db;
+  background: #DED1C8;
   border-radius: 4px;
 }
 
@@ -421,7 +416,7 @@ button, input, textarea {
   width: 55%;
   height: 8px;
   margin-bottom: 12px;
-  background: #9ca3af;
+  background: #A8988E;
 }
 
 .thumbnail-line.short {
@@ -433,7 +428,7 @@ button, input, textarea {
   height: 7px;
   margin-top: 20px;
   margin-bottom: 10px;
-  background: #9ca3af;
+  background: #A8988E;
   border-radius: 4px;
 }
 
@@ -447,29 +442,29 @@ button, input, textarea {
 }
 
 .recent-resume-info p {
-  color: #6b7280;
+  color: #8A7A72;
   font-size: 13px;
 }
 
 .recent-resume-info button {
   margin-top: 15px;
   padding: 8px 15px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #DED1C8;
   border-radius: 7px;
   background: white;
-  color: #2563eb;
+  color: #651F18;
   cursor: pointer;
 }
 
 .recent-resume-info button:hover {
-  background: #eff6ff;
+  background: #F5E8E0;
 }
 
 .empty-resumes {
   padding: 45px;
   text-align: center;
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 12px;
 }
 
@@ -478,7 +473,7 @@ button, input, textarea {
 }
 
 .empty-resumes p {
-  color: #6b7280;
+  color: #8A7A72;
 }
 
 .dashboard-interview {
@@ -487,7 +482,7 @@ button, input, textarea {
   justify-content: space-between;
   padding: 25px 30px;
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 12px;
 }
 
@@ -497,7 +492,7 @@ button, input, textarea {
   font-size: 11px;
   font-weight: bold;
   letter-spacing: 1px;
-  color: #2563eb;
+  color: #651F18;
 }
 
 .dashboard-interview h2 {
@@ -505,7 +500,7 @@ button, input, textarea {
 }
 
 .dashboard-interview p {
-  color: #6b7280;
+  color: #8A7A72;
 }
 
 .dashboard-interview button {
@@ -513,13 +508,13 @@ button, input, textarea {
   padding: 11px 18px;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   cursor: pointer;
 }
 
 .dashboard-interview button:hover {
-  background: #1d4ed8;
+  background: #4A1712;
 }
 
 .mock-interview {
@@ -532,7 +527,7 @@ button, input, textarea {
 
 .mock-interview > p {
   margin-bottom: 10px;
-  color: #4b5563;
+  color: #6B5A52;
 }
 
 .mock-interview button {
@@ -540,14 +535,14 @@ button, input, textarea {
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   font-size: 15px;
   cursor: pointer;
 }
 
 .mock-interview button:hover {
-  background: #1d4ed8;
+  background: #4A1712;
 }
 
 .mock-interview button:disabled {
@@ -559,7 +554,7 @@ button, input, textarea {
   margin-top: 25px;
   padding: 20px;
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 10px;
 }
 
@@ -587,7 +582,7 @@ button, input, textarea {
 .interview-progress {
   margin-top: 25px;
   font-weight: bold;
-  color: #2563eb;
+  color: #651F18;
 }
 
 .question-card {
@@ -595,7 +590,7 @@ button, input, textarea {
   padding: 30px;
   background: white;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
 }
 
 .question-card h2 {
@@ -611,7 +606,7 @@ button, input, textarea {
   min-height: 150px;
   margin-top: 20px;
   padding: 15px;
-  border: 1px solid #d1d5db;
+  border: 1px solid #DED1C8;
   border-radius: 8px;
   resize: vertical;
   font-size: 15px;
@@ -626,7 +621,7 @@ button, input, textarea {
   padding: 20px;
   background: white;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
 }
 
 .interview-result h3 {
@@ -653,14 +648,14 @@ button, input, textarea {
   padding: 9px 15px;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   cursor: pointer;
   font-weight: 600;
 }
 
 .resume-preview-actions button:hover {
-  background: #eff6ff;
+  background: #F5E8E0;
 }
 
 .resume-template {
@@ -671,14 +666,14 @@ button, input, textarea {
   box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
   max-width: 900px;
   margin: 0 auto;
-  color: #1e293b;
+  color: #2B1A12;
   box-sizing: border-box;
 }
 
 .resume-template p {
   white-space: pre-line;
   line-height: 1.65;
-  color: #374151;
+  color: #4A3A32;
 }
 
 .resume-section {
@@ -701,7 +696,7 @@ button, input, textarea {
 
 .resume-template-blue .template-sidebar {
   padding: 32px 24px;
-  background: #172554;
+  background: #69222E;
   color: white;
   min-width: 0;
 }
@@ -719,7 +714,7 @@ button, input, textarea {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: #3b82f6;
+  background: #9D4D5B;
   color: white;
   font-size: 36px;
   font-weight: bold;
@@ -734,12 +729,12 @@ button, input, textarea {
   margin-bottom: 12px;
   font-size: 11px;
   letter-spacing: 1.5px;
-  color: #93c5fd;
+  color: #D1ABB2;
 }
 
 .resume-template-blue .template-sidebar p {
   margin-bottom: 8px;
-  color: #dbeafe;
+  color: #DFC4C9;
   font-size: 12px;
   line-height: 1.6;
 }
@@ -755,8 +750,8 @@ button, input, textarea {
 
 .resume-template-blue .template-main .resume-section h2, .resume-template-blue .blue-intro h2 {
   padding-bottom: 7px;
-  color: #1d4ed8;
-  border-bottom: 2px solid #dbeafe;
+  color: #69222E;
+  border-bottom: 2px solid #DFC4C9;
 }
 
 .resume-template-blue .blue-intro {
@@ -774,7 +769,7 @@ button, input, textarea {
 
 .green-header {
   padding: 45px 52px 38px;
-  background: #14532d;
+  background: #4A440D;
   color: white;
 }
 
@@ -785,7 +780,7 @@ button, input, textarea {
 }
 
 .green-header p {
-  color: #dcfce7;
+  color: #DDDABE;
   font-size: 12px;
   margin: 0;
   overflow-wrap: anywhere;
@@ -798,8 +793,8 @@ button, input, textarea {
 
 .resume-template-green .resume-section h2 {
   padding-bottom: 7px;
-  color: #166534;
-  border-bottom: 2px solid #bbf7d0;
+  color: #4A440D;
+  border-bottom: 2px solid #E7E5D1;
 }
 
 .resume-template-green .resume-section p {
@@ -816,8 +811,8 @@ button, input, textarea {
   align-items: flex-end;
   justify-content: space-between;
   padding: 42px 45px;
-  background: #581c87;
-  color: white;
+  background: #EDE6D4;
+  color: #2B1A12;
   gap: 25px;
 }
 
@@ -827,7 +822,7 @@ button, input, textarea {
 }
 
 .purple-header p {
-  color: #e9d5ff;
+  color: #6B5A52;
   font-size: 12px;
   margin: 0;
 }
@@ -837,7 +832,7 @@ button, input, textarea {
   flex-direction: column;
   align-items: flex-end;
   gap: 5px;
-  color: #f3e8ff;
+  color: #6B5A52;
   font-size: 12px;
   max-width: 40%;
 }
@@ -855,15 +850,15 @@ button, input, textarea {
 
 .purple-sidebar {
   padding: 38px 25px;
-  background: #faf5ff;
-  border-left: 1px solid #e9d5ff;
+  background: #DFD8C7;
+  border-left: 1px solid #B9B3A5;
   min-width: 0;
 }
 
 .resume-template-purple .resume-section h2 {
   padding-bottom: 7px;
-  color: #7e22ce;
-  border-bottom: 2px solid #e9d5ff;
+  color: #6B5A52;
+  border-bottom: 2px solid #B9B3A5;
 }
 
 .purple-sidebar section {
@@ -872,7 +867,7 @@ button, input, textarea {
 
 .purple-sidebar h2 {
   margin-bottom: 12px;
-  color: #7e22ce;
+  color: #6B5A52;
   font-size: 14px;
   letter-spacing: 1px;
 }
@@ -895,7 +890,7 @@ button, input, textarea {
 }
 
 .templates-header p {
-  color: #6b7280;
+  color: #8A7A72;
 }
 
 .template-grid {
@@ -907,12 +902,12 @@ button, input, textarea {
 .template-card {
   padding: 20px;
   background: white;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #E8DED7;
   border-radius: 12px;
 }
 
 .template-card:hover {
-  border-color: #cbd5e1;
+  border-color: #DDD0C8;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 
@@ -920,8 +915,8 @@ button, input, textarea {
   height: 190px;
   margin-bottom: 18px;
   overflow: hidden;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
+  background: #FAF6F2;
+  border: 1px solid #E8DED7;
   border-radius: 6px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
   padding: 13px;
@@ -935,7 +930,7 @@ button, input, textarea {
 
 .mini-blue-sidebar {
   padding: 25px 15px;
-  background: #172554;
+  background: #69222E;
 }
 
 .mini-circle {
@@ -943,14 +938,14 @@ button, input, textarea {
   height: 45px;
   margin: 0 auto 25px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: #9D4D5B;
 }
 
 .mini-white-line {
   width: 85%;
   height: 5px;
   margin-bottom: 9px;
-  background: #93c5fd;
+  background: #D1ABB2;
   border-radius: 3px;
 }
 
@@ -969,7 +964,7 @@ button, input, textarea {
 .mini-green-header {
   height: 85px;
   padding: 20px;
-  background: #14532d;
+  background: #4A440D;
 }
 
 .mini-green-name {
@@ -983,7 +978,7 @@ button, input, textarea {
 .mini-green-contact {
   width: 65%;
   height: 5px;
-  background: #bbf7d0;
+  background: #E7E5D1;
   border-radius: 3px;
 }
 
@@ -1000,20 +995,20 @@ button, input, textarea {
   padding: 18px 20px;
   display: flex;
   justify-content: space-between;
-  background: #6b21a8;
+  background: #EDE6D4;
 }
 
 .mini-purple-name {
   width: 35%;
   height: 9px;
-  background: white;
+  background: #2B1A12;
   border-radius: 3px;
 }
 
 .mini-purple-contact {
   width: 25%;
   height: 5px;
-  background: #e9d5ff;
+  background: #6B5A52;
   border-radius: 3px;
 }
 
@@ -1029,15 +1024,15 @@ button, input, textarea {
 
 .mini-purple-sidebar {
   padding: 25px 12px;
-  background: #faf5ff;
-  border-left: 1px solid #e9d5ff;
+  background: #DFD8C7;
+  border-left: 1px solid #B9B3A5;
 }
 
 .mini-heading {
   width: 45%;
   height: 7px;
   margin-bottom: 15px;
-  background: #2563eb;
+  background: #8C2E3E;
   border-radius: 3px;
 }
 
@@ -1047,18 +1042,18 @@ button, input, textarea {
 }
 
 .mini-heading.green {
-  background: #16a34a;
+  background: #867B18;
 }
 
 .mini-heading.purple {
-  background: #7e22ce;
+  background: #2B1A12;
 }
 
 .mini-line {
   width: 90%;
   height: 5px;
   margin-bottom: 8px;
-  background: #d1d5db;
+  background: #DED1C8;
   border-radius: 3px;
 }
 
@@ -1072,7 +1067,7 @@ button, input, textarea {
 
 .template-card p {
   margin-bottom: 15px;
-  color: #6b7280;
+  color: #8A7A72;
   font-size: 14px;
 }
 
@@ -1081,18 +1076,18 @@ button, input, textarea {
   padding: 10px;
   border: none;
   border-radius: 7px;
-  background: #2563eb;
+  background: #651F18;
   color: white;
   cursor: pointer;
 }
 
 .template-card button:hover {
-  background: #1d4ed8;
+  background: #4A1712;
 }
 
 .template-switcher {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #E9DDD6;
   border-radius: 16px;
   padding: 22px;
   margin-bottom: 24px;
@@ -1114,15 +1109,15 @@ button, input, textarea {
 
 .template-switcher-heading p {
   margin: 0;
-  color: #64748b;
+  color: #7D6B62;
   font-size: 13px;
 }
 
 .selected-template {
   padding: 8px 13px;
   border-radius: 999px;
-  background: #eff6ff;
-  color: #2563eb;
+  background: #F5E8E0;
+  color: #651F18;
   font-size: 12px;
   font-weight: 700;
 }
@@ -1136,7 +1131,7 @@ button, input, textarea {
 .template-option {
   text-align: left;
   padding: 0;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #E9DDD6;
   border-radius: 13px;
   background: #ffffff;
   overflow: hidden;
@@ -1146,12 +1141,12 @@ button, input, textarea {
 
 .template-option:hover {
   transform: translateY(-3px);
-  border-color: #94a3b8;
+  border-color: #B3A297;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
 }
 
 .template-option.active {
-  border-color: #2563eb;
+  border-color: #651F18;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
@@ -1161,14 +1156,14 @@ button, input, textarea {
 
 .template-option-info strong {
   display: block;
-  color: #0f172a;
+  color: #2B1A12;
   font-size: 14px;
   margin-bottom: 4px;
 }
 
 .template-option-info span {
   display: block;
-  color: #64748b;
+  color: #7D6B62;
   font-size: 12px;
 }
 
@@ -1179,7 +1174,7 @@ button, input, textarea {
 .card-blue-sidebar {
   width: 30%;
   padding: 9px 7px;
-  background: #172554;
+  background: #69222E;
 }
 
 .card-blue-main {
@@ -1193,19 +1188,19 @@ button, input, textarea {
   height: 25px;
   border-radius: 50%;
   margin-bottom: 9px;
-  background: #60a5fa;
+  background: #9D4D5B;
 }
 
 .card-small-line, .card-content-line, .card-title-line, .card-large-title, .card-section-title {
   height: 4px;
   border-radius: 4px;
-  background: #cbd5e1;
+  background: #DDD0C8;
   margin-bottom: 5px;
 }
 
 .card-small-line {
   width: 80%;
-  background: #64748b;
+  background: #7D6B62;
 }
 
 .card-small-line.short {
@@ -1216,14 +1211,14 @@ button, input, textarea {
   width: 65%;
   height: 5px;
   border-radius: 4px;
-  background: #60a5fa;
+  background: #9D4D5B;
   margin: 11px 0 6px;
 }
 
 .card-large-title {
   width: 65%;
   height: 9px;
-  background: #1e3a8a;
+  background: #69222E;
   margin-bottom: 5px;
 }
 
@@ -1234,7 +1229,7 @@ button, input, textarea {
 .card-section-title {
   width: 45%;
   height: 6px;
-  background: #2563eb;
+  background: #8C2E3E;
   margin-top: 12px;
 }
 
@@ -1255,7 +1250,7 @@ button, input, textarea {
 .card-green-header {
   height: 47px;
   padding: 9px 12px;
-  background: #14532d;
+  background: #4A440D;
 }
 
 .card-green-name {
@@ -1270,7 +1265,7 @@ button, input, textarea {
   width: 65%;
   height: 4px;
   border-radius: 4px;
-  background: #bbf7d0;
+  background: #E7E5D1;
 }
 
 .card-green-content {
@@ -1279,7 +1274,7 @@ button, input, textarea {
 
 .card-section-title.green {
   width: 32%;
-  background: #15803d;
+  background: #867B18;
   height: 6px;
   margin-top: 9px;
 }
@@ -1297,13 +1292,13 @@ button, input, textarea {
 .card-purple-header {
   height: 53px;
   padding: 10px 13px;
-  background: #581c87;
+  background: #EDE6D4;
 }
 
 .card-purple-name {
   width: 48%;
   height: 9px;
-  background: white;
+  background: #2B1A12;
   border-radius: 4px;
   margin-bottom: 6px;
 }
@@ -1311,7 +1306,7 @@ button, input, textarea {
 .card-purple-contact {
   width: 70%;
   height: 4px;
-  background: #e9d5ff;
+  background: #6B5A52;
   border-radius: 4px;
 }
 
@@ -1328,18 +1323,18 @@ button, input, textarea {
 .card-purple-sidebar {
   width: 32%;
   padding: 10px 7px;
-  background: #faf5ff;
+  background: #DFD8C7;
 }
 
 .card-section-title.purple {
   width: 48%;
-  background: #9333ea;
+  background: #2B1A12;
   height: 6px;
   margin-top: 8px;
 }
 
 .card-small-title.purple {
-  background: #9333ea;
+  background: #2B1A12;
 }
 
 .resume-builder-content {
@@ -1372,7 +1367,7 @@ button, input, textarea {
 
 .preview-heading p {
   margin: 0;
-  color: #64748b;
+  color: #7D6B62;
   font-size: 13px;
 }
 
@@ -1432,7 +1427,7 @@ button, input, textarea {
 
 .resume-template-blue .template-profile p {
   margin: 0;
-  color: #bfdbfe;
+  color: #D1ABB2;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -1445,7 +1440,7 @@ button, input, textarea {
   justify-content: center;
   margin: 0 auto;
   border-radius: 50%;
-  background: #3b82f6;
+  background: #9D4D5B;
   color: white;
   font-size: 22px;
   font-weight: 800;
@@ -1457,12 +1452,12 @@ button, input, textarea {
 }
 
 .resume-template-blue .template-sidebar-section h3 {
-  color: #93c5fd;
+  color: #D1ABB2;
   margin-bottom: 12px;
 }
 
 .resume-template-blue .template-sidebar-section p {
-  color: #dbeafe;
+  color: #DFC4C9;
   font-size: 11px;
   line-height: 1.6;
   overflow-wrap: anywhere;
@@ -1473,25 +1468,25 @@ button, input, textarea {
 }
 
 .resume-template-blue .template-sidebar-section li {
-  color: #e0ecff;
+  color: #DFC4C9;
   font-size: 11px;
   margin-bottom: 6px;
   overflow-wrap: break-word;
 }
 
 .blue-main-header {
-  border-bottom: 2px solid #dbeafe;
+  border-bottom: 2px solid #DFC4C9;
   padding-bottom: 22px;
   margin-bottom: 27px;
 }
 
 .blue-main-header h1 {
   margin-bottom: 9px;
-  color: #172554;
+  color: #69222E;
 }
 
 .blue-main-header p {
-  color: #64748b;
+  color: #7D6B62;
   font-size: 12px;
   overflow-wrap: anywhere;
 }
@@ -1502,8 +1497,8 @@ button, input, textarea {
 }
 
 .resume-template-blue .resume-section h2 {
-  color: #1d4ed8;
-  border-bottom: 2px solid #dbeafe;
+  color: #69222E;
+  border-bottom: 2px solid #DFC4C9;
   padding-bottom: 7px;
   margin-bottom: 12px;
 }
@@ -1518,9 +1513,9 @@ button, input, textarea {
 }
 
 .green-section h2 {
-  color: #166534;
+  color: #4A440D;
   padding-bottom: 8px;
-  border-bottom: 2px solid #bbf7d0;
+  border-bottom: 2px solid #E7E5D1;
   margin-bottom: 12px;
 }
 
@@ -1538,7 +1533,7 @@ button, input, textarea {
 }
 
 .purple-contact span {
-  color: #f3e8ff;
+  color: #6B5A52;
   font-size: 11px;
   text-align: right;
   overflow-wrap: anywhere;
@@ -1550,10 +1545,10 @@ button, input, textarea {
 }
 
 .purple-section h2 {
-  color: #7e22ce;
+  color: #6B5A52;
   margin-bottom: 12px;
   padding-bottom: 7px;
-  border-bottom: 2px solid #e9d5ff;
+  border-bottom: 2px solid #B9B3A5;
 }
 
 .purple-section p, .purple-section li {
@@ -1566,7 +1561,7 @@ button, input, textarea {
 }
 
 .purple-sidebar-section h3 {
-  color: #7e22ce;
+  color: #6B5A52;
   margin-bottom: 12px;
 }
 
@@ -1599,7 +1594,7 @@ button, input, textarea {
   padding: 15px 18px;
   margin-bottom: 24px;
   background: white;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #E9DDD6;
   border-radius: 12px;
   box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
 }
@@ -1614,19 +1609,19 @@ button, input, textarea {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1px;
-  color: #64748b;
+  color: #7D6B62;
   text-transform: uppercase;
 }
 
 .current-template-info strong {
   font-size: 14px;
-  color: #0f172a;
+  color: #2B1A12;
 }
 
 .change-template-button {
-  border: 1px solid #cbd5e1;
+  border: 1px solid #DDD0C8;
   background: white;
-  color: #1e293b;
+  color: #2B1A12;
   padding: 9px 16px;
   border-radius: 8px;
   font-size: 13px;
@@ -1636,9 +1631,9 @@ button, input, textarea {
 }
 
 .change-template-button:hover {
-  border-color: #2563eb;
-  color: #2563eb;
-  background: #eff6ff;
+  border-color: #651F18;
+  color: #651F18;
+  background: #F5E8E0;
 }
 
 .template-modal-overlay {
@@ -1672,13 +1667,13 @@ button, input, textarea {
   justify-content: space-between;
   gap: 25px;
   padding: 25px 28px 20px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid #E9DDD6;
 }
 
 .modal-eyebrow {
   display: block;
   margin-bottom: 5px;
-  color: #2563eb;
+  color: #651F18;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1.5px;
@@ -1687,12 +1682,12 @@ button, input, textarea {
 .template-modal-header h2 {
   margin: 0 0 5px;
   font-size: 22px;
-  color: #0f172a;
+  color: #2B1A12;
 }
 
 .template-modal-header p {
   margin: 0;
-  color: #64748b;
+  color: #7D6B62;
   font-size: 13px;
 }
 
@@ -1702,8 +1697,8 @@ button, input, textarea {
   height: 36px;
   border: none;
   border-radius: 8px;
-  background: #f1f5f9;
-  color: #475569;
+  background: #F3ECE6;
+  color: #6B5A52;
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
@@ -1711,8 +1706,8 @@ button, input, textarea {
 }
 
 .template-modal-close:hover {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: #E9DDD6;
+  color: #2B1A12;
 }
 
 .template-modal-options {
@@ -1727,7 +1722,7 @@ button, input, textarea {
   padding: 0;
   text-align: left;
   background: white;
-  border: 2px solid #e2e8f0;
+  border: 2px solid #E9DDD6;
   border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
@@ -1736,12 +1731,12 @@ button, input, textarea {
 
 .template-modal-option:hover {
   transform: translateY(-4px);
-  border-color: #94a3b8;
+  border-color: #B3A297;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
 }
 
 .template-modal-option.active {
-  border-color: #2563eb;
+  border-color: #651F18;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
 
@@ -1750,12 +1745,12 @@ button, input, textarea {
   height: 250px;
   overflow: hidden;
   pointer-events: none;
-  background: #f8fafc;
+  background: #FAF6F2;
 }
 
 .template-modal-option-info {
   padding: 16px 17px 18px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid #F3ECE6;
 }
 
 .template-modal-option-info-header {
@@ -1766,13 +1761,13 @@ button, input, textarea {
 }
 
 .template-modal-option-info strong {
-  color: #0f172a;
+  color: #2B1A12;
   font-size: 15px;
 }
 
 .template-modal-option-info p {
   margin: 7px 0 13px;
-  color: #64748b;
+  color: #7D6B62;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -1781,8 +1776,8 @@ button, input, textarea {
   display: inline-flex;
   padding: 4px 8px;
   border-radius: 999px;
-  background: #eff6ff;
-  color: #2563eb;
+  background: #F5E8E0;
+  color: #651F18;
   font-size: 9px;
   font-weight: 800;
   text-transform: uppercase;
@@ -1797,8 +1792,8 @@ button, input, textarea {
 .template-features span {
   padding: 4px 7px;
   border-radius: 5px;
-  background: #f1f5f9;
-  color: #475569;
+  background: #F3ECE6;
+  color: #6B5A52;
   font-size: 9px;
   font-weight: 700;
 }
@@ -1809,12 +1804,12 @@ button, input, textarea {
   justify-content: space-between;
   gap: 15px;
   padding: 15px 28px;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
+  border-top: 1px solid #E9DDD6;
+  background: #FAF6F2;
 }
 
 .template-modal-footer span {
-  color: #64748b;
+  color: #7D6B62;
   font-size: 11px;
 }
 
@@ -1822,7 +1817,7 @@ button, input, textarea {
   border: none;
   padding: 9px 17px;
   border-radius: 8px;
-  background: #0f172a;
+  background: #2B1A12;
   color: white;
   font-size: 12px;
   font-weight: 700;
@@ -1830,7 +1825,7 @@ button, input, textarea {
 }
 
 .template-modal-footer button:hover {
-  background: #1e293b;
+  background: #2B1A12;
 }
 
 .resume-columns {
@@ -1870,12 +1865,6 @@ button, input, textarea {
   min-width: 0;
 }
 
-
-/* =========================================================
-   KEYFRAMES
-   ========================================================= */
-
-
 @keyframes templateModalFade {
   from {
     opacity: 0;
@@ -1897,12 +1886,6 @@ button, input, textarea {
     transform: translateY(0) scale(1);
   }
 }
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
 
 @media (max-width: 1000px) {
   .resume-builder {
@@ -1975,7 +1958,7 @@ button, input, textarea {
 
   .purple-sidebar {
     border-left: none;
-    border-top: 1px solid #e9d5ff;
+    border-top: 1px solid #B9B3A5;
   }
 }
 
@@ -2058,7 +2041,7 @@ button, input, textarea {
 
   .purple-sidebar {
     border-left: none;
-    border-top: 1px solid #e9d5ff;
+    border-top: 1px solid #B9B3A5;
     padding: 25px;
   }
 }
@@ -2104,7 +2087,7 @@ button, input, textarea {
 
   .purple-sidebar {
     border-left: none;
-    border-top: 1px solid #e9d5ff;
+    border-top: 1px solid #B9B3A5;
   }
 }
 
@@ -2175,5 +2158,6 @@ button, input, textarea {
 
   .purple-sidebar {
     padding: 25px;
+    border-top: 1px solid #B9B3A5;
   }
 }

@@ -1,4 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 const ResumeContext = createContext();
 
@@ -23,19 +28,26 @@ export function ResumeProvider({ children }) {
   const [resume, setResume] = useState(() => {
     const saved = localStorage.getItem("currentResume");
 
-    return saved
-      ? JSON.parse(saved)
-      : createBlankResume();
+    try {
+      return saved
+        ? JSON.parse(saved)
+        : createBlankResume();
+    } catch {
+      return createBlankResume();
+    }
   });
 
   const [savedResumes, setSavedResumes] = useState(() => {
     const saved = localStorage.getItem("savedResumes");
 
-    return saved
-      ? JSON.parse(saved)
-      : [];
+    try {
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
+  // Save current resume to browser storage
   useEffect(() => {
     localStorage.setItem(
       "currentResume",
@@ -43,6 +55,7 @@ export function ResumeProvider({ children }) {
     );
   }, [resume]);
 
+  // Save all saved resumes to browser storage
   useEffect(() => {
     localStorage.setItem(
       "savedResumes",
@@ -50,10 +63,12 @@ export function ResumeProvider({ children }) {
     );
   }, [savedResumes]);
 
+  // Create a completely new resume
   const createNewResume = () => {
     setResume(createBlankResume());
   };
 
+  // Save current resume
   const saveResume = () => {
     const updatedResume = {
       ...resume,
@@ -76,12 +91,16 @@ export function ResumeProvider({ children }) {
         );
       }
 
-      return [updatedResume, ...previous];
+      return [
+        updatedResume,
+        ...previous,
+      ];
     });
 
     return updatedResume;
   };
 
+  // Open an existing saved resume
   const openResume = (resumeData) => {
     setResume({
       ...resumeData,
@@ -89,9 +108,12 @@ export function ResumeProvider({ children }) {
     });
   };
 
+  // Delete saved resume
   const deleteResume = (id) => {
     setSavedResumes((previous) =>
-      previous.filter((item) => item.id !== id)
+      previous.filter(
+        (item) => item.id !== id
+      )
     );
 
     if (resume.id === id) {
@@ -99,6 +121,7 @@ export function ResumeProvider({ children }) {
     }
   };
 
+  // Change resume template
   const changeTemplate = (template) => {
     setResume((previous) => ({
       ...previous,
