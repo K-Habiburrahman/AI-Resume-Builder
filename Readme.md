@@ -305,5 +305,3 @@ This project is developed as an academic mini-project.
 **Computer Engineering Students**
 
 Developed as part of an academic mini-project in Artificial Intelligence.
-#   A I - R e s u m e - B u i l d e r  
- 

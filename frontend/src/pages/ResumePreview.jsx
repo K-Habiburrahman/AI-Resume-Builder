@@ -82,6 +82,47 @@ function ResumePreview({ showEditButton = true, resume: previewResume }) {
     );
   };
 
+  const exportResumeAsPdf = () => {
+    const resumeElement = document.querySelector(
+      ".resume-preview-wrapper .resume-template"
+    );
+
+    if (!resumeElement) {
+      window.print();
+      return;
+    }
+
+    const printableWidth = (210 - 24) * 96 / 25.4;
+    const printableHeight = (297 - 24) * 96 / 25.4;
+    const resumeWidth = resumeElement.scrollWidth;
+    const resumeHeight = resumeElement.scrollHeight;
+    const scale = Math.min(
+      1,
+      printableWidth / resumeWidth,
+      printableHeight / resumeHeight
+    );
+
+    resumeElement.style.setProperty(
+      "--resume-print-width",
+      `${resumeWidth}px`
+    );
+    resumeElement.style.setProperty(
+      "--resume-print-scale",
+      scale
+    );
+
+    window.addEventListener(
+      "afterprint",
+      () => {
+        resumeElement.style.removeProperty("--resume-print-width");
+        resumeElement.style.removeProperty("--resume-print-scale");
+      },
+      { once: true }
+    );
+
+    window.print();
+  };
+
   /*
    * MODERN BLUE
    *
@@ -490,6 +531,13 @@ function ResumePreview({ showEditButton = true, resume: previewResume }) {
             onClick={() => navigate("/resume")}
           >
             Edit Resume
+          </button>
+
+          <button
+            type="button"
+            onClick={exportResumeAsPdf}
+          >
+            Export PDF
           </button>
 
         </div>
