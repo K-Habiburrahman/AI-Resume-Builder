@@ -4,35 +4,53 @@ from pathlib import Path
 from pypdf import PdfReader
 from docx import Document
 
+
+# ============================================================
+# SECTION ALIASES
+# ============================================================
+
 SECTION_ALIASES = {
-    "summary": [
+    "summary": {
         "summary",
         "professional summary",
         "profile",
         "career objective",
         "objective",
         "about me",
-    ],
-    "education": [
+        "about",
+    },
+
+    "education": {
         "education",
         "academic background",
         "educational qualification",
+        "educational qualifications",
         "academic qualifications",
-    ],
-    "skills": [
+        "academics",
+    },
+
+    "skills": {
         "skills",
         "technical skills",
         "technical skills & tools",
+        "technical skills and tools",
         "skills & technologies",
+        "skills and technologies",
         "technical competencies",
-    ],
-    "projects": [
+        "core skills",
+        "technical expertise",
+    },
+
+    "projects": {
         "projects",
         "academic projects",
         "personal projects",
         "projects undertaken",
-    ],
-    "experience": [
+        "project experience",
+        "key projects",
+    },
+
+    "experience": {
         "experience",
         "work experience",
         "professional experience",
@@ -43,56 +61,176 @@ SECTION_ALIASES = {
         "employment",
         "internship",
         "internships",
-    ],
-    "certifications": [
+    },
+
+    "certifications": {
         "certifications",
         "certificates",
+        "certification",
         "certifications & achievements",
-        "achievements",
         "certifications and achievements",
-    ],
+        "achievements",
+        "licenses & certifications",
+        "licenses and certifications",
+    },
 }
 
 
-# --------------------------------------------------
-# FILE TEXT EXTRACTION
-# --------------------------------------------------
+ALL_SECTION_NAMES = {
+    alias
+    for aliases in SECTION_ALIASES.values()
+    for alias in aliases
+}
 
+
+# ============================================================
+# TEXT NORMALIZATION
+# ============================================================
+
+def normalize_whitespace(text):
+    """
+    Normalize spaces while preserving meaningful punctuation.
+    """
+    if not text:
+        return ""
+
+    text = text.replace("\xa0", " ")
+    text = text.replace("\u200b", "")
+    text = text.replace("\ufeff", "")
+
+    # Collapse repeated whitespace
+    text = re.sub(r"[ \t]+", " ", text)
+
+    return text.strip()
+
+
+def normalize_line(line):
+    """
+    Clean a single extracted line.
+    """
+    if not line:
+        return ""
+
+    line = line.replace("\xa0", " ")
+    line = line.replace("\u200b", "")
+    line = line.replace("\ufeff", "")
+
+    # Remove markdown headings
+    line = re.sub(r"^#+\s*", "", line)
+
+    # Normalize bullet characters WITHOUT destroying hyphens inside text
+    line = re.sub(r"^[•●▪◦○‣⁃]\s*", "", line)
+
+    # Remove decorative bullets only when they are actually at the start
+    line = re.sub(r"^\s*[-–—]\s+", "", line)
+
+    # Normalize whitespace
+    line = re.sub(r"\s+", " ", line)
+
+    return line.strip()
+
+
+# ============================================================
+# PDF EXTRACTION
+# ============================================================
 
 def extract_text_from_pdf(file_path):
+    """
+    Extract text from PDF using pypdf.
+
+    Important:
+    PDF does not store text as normal paragraphs.
+    Reading order may therefore be imperfect, especially
+    for two-column resumes.
+    """
+
     reader = PdfReader(file_path)
 
-    text = []
+    pages = []
 
     for page in reader.pages:
-        page_text = page.extract_text()
+        try:
+            page_text = page.extract_text(
+                extraction_mode="layout"
+            )
+        except TypeError:
+            # Older pypdf versions
+            page_text = page.extract_text()
 
         if page_text:
-            text.append(page_text)
+            pages.append(page_text)
 
-    return "\n".join(text)
+    return "\n".join(pages)
 
+
+# ============================================================
+# DOCX EXTRACTION
+# ============================================================
 
 def extract_text_from_docx(file_path):
+    """
+    Extract paragraphs AND tables from DOCX.
+
+    A lot of resumes use tables for:
+    - contact information
+    - education
+    - skills
+    - two-column layouts
+    """
+
     document = Document(file_path)
 
-    paragraphs = []
+    parts = []
 
+    # Normal paragraphs
     for paragraph in document.paragraphs:
         text = paragraph.text.strip()
 
         if text:
-            paragraphs.append(text)
+            parts.append(text)
 
-    return "\n".join(paragraphs)
+    # Tables
+    for table in document.tables:
+        for row in table.rows:
 
+            cells = []
+
+            for cell in row.cells:
+                cell_text = " ".join(
+                    paragraph.text.strip()
+                    for paragraph in cell.paragraphs
+                    if paragraph.text.strip()
+                )
+
+                if cell_text:
+                    cells.append(cell_text)
+
+            if cells:
+                parts.append(" | ".join(cells))
+
+    return "\n".join(parts)
+
+
+# ============================================================
+# TXT EXTRACTION
+# ============================================================
 
 def extract_text_from_txt(file_path):
-    with open(file_path, "r", encoding="utf-8", errors="ignore") as file:
+    with open(
+        file_path,
+        "r",
+        encoding="utf-8",
+        errors="ignore"
+    ) as file:
         return file.read()
 
 
+# ============================================================
+# UNIVERSAL EXTRACTION
+# ============================================================
+
 def extract_text(file_path):
+
     extension = Path(file_path).suffix.lower()
 
     if extension == ".pdf":
@@ -104,189 +242,217 @@ def extract_text(file_path):
     if extension == ".txt":
         return extract_text_from_txt(file_path)
 
-    raise ValueError("Unsupported file format. Please upload PDF, DOCX or TXT.")
+    raise ValueError(
+        "Unsupported file format. Please upload PDF, DOCX or TXT."
+    )
 
 
-# --------------------------------------------------
-# TEXT CLEANING
-# --------------------------------------------------
-
-
-def normalize_line(line):
-    line = line.strip()
-
-    # Remove markdown heading symbols
-    line = re.sub(r"^#+\s*", "", line)
-
-    # Remove bullets
-    line = re.sub(r"^[\s•\-–—:]+", "", line)
-
-    return line.strip()
-
-
-# --------------------------------------------------
+# ============================================================
 # SECTION DETECTION
-# --------------------------------------------------
+# ============================================================
+
+def normalize_section_heading(text):
+    """
+    Convert:
+
+        PROFESSIONAL SUMMARY:
+        Skills & Technologies
+        EDUCATION
+        Projects -
+
+    into a comparable heading.
+    """
+
+    text = normalize_line(text)
+
+    text = text.lower()
+
+    # Remove trailing punctuation
+    text = re.sub(r"[\s:|•\-–—]+$", "", text)
+
+    # Normalize ampersand
+    text = text.replace("&", "and")
+
+    # Normalize whitespace
+    text = re.sub(r"\s+", " ", text)
+
+    return text.strip()
 
 
 def find_section(line):
-    normalized = normalize_line(line).lower()
 
-    normalized = re.sub(r"[:\-]+$", "", normalized).strip()
+    normalized = normalize_section_heading(line)
 
     for section, aliases in SECTION_ALIASES.items():
 
         for alias in aliases:
 
-            if normalized == alias.lower():
+            alias_normalized = normalize_section_heading(alias)
+
+            if normalized == alias_normalized:
                 return section
 
     return None
 
 
-# --------------------------------------------------
+# ============================================================
 # CONTACT INFORMATION
-# --------------------------------------------------
+# ============================================================
+
+def extract_email(text):
+
+    match = re.search(
+        r"\b[A-Za-z0-9._%+-]+"
+        r"@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b",
+        text
+    )
+
+    return match.group(0) if match else ""
 
 
-def extract_contact_information(text):
+def extract_phone(text):
 
-    email_match = re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", text)
+    patterns = [
 
-    phone_match = re.search(r"(?<!\d)(?:\+91[\s-]?)?[6-9]\d{9}(?!\d)", text)
+        # +91 9999999999
+        r"(?:\+91[\s.-]?)?[6-9]\d{9}",
 
-    email = email_match.group(0) if email_match else ""
+        # +91-99999-99999
+        r"\+91[\s.-]?\d{5}[\s.-]?\d{5}",
+    ]
 
-    phone = ""
+    for pattern in patterns:
 
-    if phone_match:
+        match = re.search(pattern, text)
 
-        phone = re.sub(r"\D", "", phone_match.group(0))
+        if match:
 
-        if phone.startswith("91") and len(phone) == 12:
-            phone = phone[-10:]
+            phone = re.sub(
+                r"\D",
+                "",
+                match.group(0)
+            )
 
-    return email, phone
+            if phone.startswith("91") and len(phone) == 12:
+                phone = phone[-10:]
 
-
-# --------------------------------------------------
-# NAME
-# --------------------------------------------------
-
-
-def extract_name(text):
-
-    lines = [normalize_line(line) for line in text.splitlines() if normalize_line(line)]
-
-    for line in lines[:8]:
-
-        lower_line = line.lower()
-
-        if "@" in line:
-            continue
-
-        if re.search(r"\d", line):
-            continue
-
-        if len(line.split()) < 2:
-            continue
-
-        if len(line) > 60:
-            continue
-
-        excluded_words = [
-            "resume",
-            "curriculum vitae",
-            "cv",
-            "profile",
-            "objective",
-        ]
-
-        if any(word in lower_line for word in excluded_words):
-            continue
-
-        return line
+            if len(phone) == 10:
+                return phone
 
     return ""
 
 
-# --------------------------------------------------
-# PROJECT DETECTION
-# --------------------------------------------------
+def extract_contact_information(text):
+
+    email = extract_email(text)
+    phone = extract_phone(text)
+
+    return email, phone
 
 
-def looks_like_project_title(line):
+# ============================================================
+# NAME EXTRACTION
+# ============================================================
 
-    text = normalize_line(line)
+def looks_like_name(line):
 
-    lower = text.lower()
+    line = normalize_line(line)
 
-    # Definitely not a project
-    if not text:
+    if not line:
         return False
 
-    if "certificate" in lower:
+    if "@" in line:
         return False
 
-    if "certification" in lower:
+    if re.search(r"\d", line):
         return False
 
-    if "hackathon" in lower:
+    if len(line) > 60:
         return False
 
-    # Common project indicators
-    project_keywords = [
-        "system",
-        "application",
-        "app",
-        "platform",
-        "website",
-        "dashboard",
-        "detector",
-        "detection",
-        "monitoring",
-        "management",
-        "assistant",
-        "analyzer",
-        "analysis",
-        "portal",
-        "tool",
+    words = line.split()
+
+    if len(words) < 2 or len(words) > 5:
+        return False
+
+    excluded = {
+        "resume",
+        "curriculum vitae",
+        "cv",
+        "profile",
+        "objective",
+        "summary",
+        "education",
+        "skills",
+        "projects",
+        "experience",
+        "certifications",
+    }
+
+    if line.lower() in excluded:
+        return False
+
+    return True
+
+
+def extract_name(text):
+
+    lines = [
+        normalize_line(line)
+        for line in text.splitlines()
     ]
 
-    if any(keyword in lower for keyword in project_keywords):
-        return True
-
-    return False
-
-
-def looks_like_project_description(line):
-
-    lower = line.lower()
-
-    description_keywords = [
-        "developed",
-        "built",
-        "created",
-        "designed",
-        "implemented",
-        "integrated",
-        "extracted",
-        "trained",
-        "deployed",
-        "using",
-        "based",
-        "real-time",
-        "real time",
-        "technologies:",
+    lines = [
+        line
+        for line in lines
+        if line
     ]
 
-    return any(keyword in lower for keyword in description_keywords)
+    # Usually the name occurs near the beginning
+    for line in lines[:15]:
+
+        if looks_like_name(line):
+            return line
+
+    return ""
 
 
-# --------------------------------------------------
-# EXTRACT SECTIONS
-# --------------------------------------------------
+# ============================================================
+# LOCATION
+# ============================================================
 
+def extract_location(text):
+
+    # Common Indian city/state patterns.
+    # This intentionally remains conservative.
+    locations = [
+        "Mumbai",
+        "Thane",
+        "Pune",
+        "Bengaluru",
+        "Bangalore",
+        "Hyderabad",
+        "Delhi",
+        "New Delhi",
+        "Chennai",
+        "Kolkata",
+        "Ahmedabad",
+        "Navi Mumbai",
+    ]
+
+    lower_text = text.lower()
+
+    for location in locations:
+
+        if location.lower() in lower_text:
+            return location
+
+    return ""
+
+
+# ============================================================
+# SECTION EXTRACTION
+# ============================================================
 
 def extract_sections(text):
 
@@ -294,9 +460,9 @@ def extract_sections(text):
 
     lines = []
 
-    for line in raw_lines:
+    for raw_line in raw_lines:
 
-        cleaned = normalize_line(line)
+        cleaned = normalize_line(raw_line)
 
         if cleaned:
             lines.append(cleaned)
@@ -312,89 +478,76 @@ def extract_sections(text):
 
     current_section = None
 
-    certification_content_started = False
-
-    for index, line in enumerate(lines):
+    for line in lines:
 
         detected_section = find_section(line)
 
-        # ------------------------------------------
-        # NORMAL SECTION HEADING
-        # ------------------------------------------
+        # ----------------------------------------------------
+        # SECTION HEADER
+        # ----------------------------------------------------
 
         if detected_section:
 
             current_section = detected_section
-
-            if detected_section == "certifications":
-                certification_content_started = False
-
             continue
 
-        # ------------------------------------------
-        # PROJECT DETECTION INSIDE CERTIFICATIONS
-        # ------------------------------------------
-
-        if current_section == "certifications":
-
-            # Detect a project title appearing after
-            # certification information.
-            if certification_content_started and looks_like_project_title(line):
-
-                current_section = "projects"
-
-                sections["projects"].append(line)
-
-                continue
-
-            # Once actual certification content appears,
-            # mark it as started.
-            if line:
-
-                lower = line.lower()
-
-                if (
-                    "certificate" in lower
-                    or "certification" in lower
-                    or "hackathon" in lower
-                ):
-                    certification_content_started = True
-
-        # ------------------------------------------
-        # ADD CONTENT TO CURRENT SECTION
-        # ------------------------------------------
+        # ----------------------------------------------------
+        # CONTENT
+        # ----------------------------------------------------
 
         if current_section:
-
             sections[current_section].append(line)
 
-    # ----------------------------------------------
-    # CLEAN CERTIFICATION CONTENT
-    # ----------------------------------------------
+    # --------------------------------------------------------
+    # Convert arrays to text
+    # --------------------------------------------------------
 
-    for section in sections:
+    cleaned_sections = {}
 
-        sections[section] = "\n".join(sections[section]).strip()
+    for section, content in sections.items():
 
-    return sections
+        # Remove duplicate consecutive lines
+        result = []
+
+        previous = None
+
+        for line in content:
+
+            line = normalize_line(line)
+
+            if not line:
+                continue
+
+            if line == previous:
+                continue
+
+            result.append(line)
+
+            previous = line
+
+        cleaned_sections[section] = "\n".join(result).strip()
+
+    return cleaned_sections
 
 
-# --------------------------------------------------
+# ============================================================
 # RESUME PARSER
-# --------------------------------------------------
-
+# ============================================================
 
 def parse_resume(file_path):
 
     text = extract_text(file_path)
 
     if not text.strip():
-
-        raise ValueError("No readable text was found in the uploaded resume.")
+        raise ValueError(
+            "No readable text was found in the uploaded resume."
+        )
 
     email, phone = extract_contact_information(text)
 
     name = extract_name(text)
+
+    location = extract_location(text)
 
     sections = extract_sections(text)
 
@@ -402,7 +555,8 @@ def parse_resume(file_path):
         "name": name,
         "email": email,
         "phone": phone,
-        "location": "",
+        "location": location,
+
         "summary": sections["summary"],
         "education": sections["education"],
         "skills": sections["skills"],

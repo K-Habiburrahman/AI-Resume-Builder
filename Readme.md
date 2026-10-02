@@ -162,6 +162,11 @@ Install the required packages:
 pip install -r requirements.txt
 ```
 
+Add your Gemini API key to `backend/.env` before starting FastAPI. The
+interview uses `gemini-3.5-flash`; change `GEMINI_MODEL` there if your API key
+uses a different model. Keep `.env` private and do not add its key to frontend
+files.
+
 Start the FastAPI server:
 
 ```bash
@@ -300,3 +305,5 @@ This project is developed as an academic mini-project.
 **Computer Engineering Students**
 
 Developed as part of an academic mini-project in Artificial Intelligence.
+#   A I - R e s u m e - B u i l d e r  
+ 

@@ -48,11 +48,14 @@ export async function generateInterviewQuestions(resume) {
     }
   );
 
+  const result = await response.json();
+
   if (!response.ok) {
     throw new Error(
+      result.detail || result.message ||
       "Failed to generate interview questions"
     );
   }
 
-  return response.json();
+  return result;
 }

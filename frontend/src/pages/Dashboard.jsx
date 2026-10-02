@@ -15,20 +15,27 @@ function Dashboard() {
   } = useResume();
 
   const fileInputRef = useRef(null);
-
   const [importing, setImporting] = useState(false);
+
+  // --------------------------------------------------
+  // NEW RESUME
+  // --------------------------------------------------
 
   const handleNewResume = () => {
     createNewResume();
     navigate("/resume");
   };
 
+  // --------------------------------------------------
+  // IMPORT RESUME
+  // --------------------------------------------------
+
   const handleImportClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
 
   const handleImport = async (event) => {
-    const file = event.target.files[0];
+    const file = event.target.files?.[0];
 
     if (!file) {
       return;
@@ -42,34 +49,49 @@ function Dashboard() {
       if (!result.success) {
         alert(
           result.message ||
-          "Could not import resume."
+            "Could not import resume."
         );
         return;
       }
 
       setResume({
         ...result.resume,
-        id: Date.now().toString(),
+
+        // Always give imported resumes a unique ID
+        id: crypto.randomUUID(),
+
         template: "blue",
         saved: false,
         updatedAt: "",
       });
 
       navigate("/resume");
-
     } catch (error) {
+      console.error("Resume import error:", error);
+
       alert(
         "Could not import the resume. Make sure the backend is running."
       );
     } finally {
       setImporting(false);
+
+      // Allow the same file to be selected again
       event.target.value = "";
     }
   };
 
+  // --------------------------------------------------
+  // OPEN SAVED RESUME
+  // --------------------------------------------------
+
   const handleOpenResume = (savedResume) => {
     openResume(savedResume);
     navigate("/preview");
+  };
+
+  const handleEditResume = (savedResume) => {
+    openResume(savedResume);
+    navigate("/resume");
   };
 
   return (
@@ -84,7 +106,10 @@ function Dashboard() {
         hidden
       />
 
-      {/* Header */}
+      {/* ==================================================
+          HEADER
+      ================================================== */}
+
       <div className="dashboard-header">
         <div>
           <h1>Home</h1>
@@ -95,6 +120,7 @@ function Dashboard() {
         </div>
 
         <button
+          type="button"
           className="dashboard-interview-button"
           onClick={() => navigate("/interview")}
         >
@@ -102,10 +128,11 @@ function Dashboard() {
         </button>
       </div>
 
+      {/* ==================================================
+          START A NEW RESUME
+      ================================================== */}
 
-      {/* Start a new resume */}
       <section className="dashboard-section">
-
         <h2>Start a new resume</h2>
 
         <div className="resume-start-grid">
@@ -128,7 +155,6 @@ function Dashboard() {
               </p>
             </div>
           </div>
-
 
           {/* Import Resume */}
           <div
@@ -153,7 +179,6 @@ function Dashboard() {
             </div>
           </div>
 
-
           {/* Templates */}
           <div
             className="resume-action-card"
@@ -174,11 +199,12 @@ function Dashboard() {
           </div>
 
         </div>
-
       </section>
 
+      {/* ==================================================
+          RECENT RESUMES
+      ================================================== */}
 
-      {/* Recent Resumes */}
       <section className="dashboard-section recent-section">
 
         <div className="section-heading">
@@ -193,28 +219,37 @@ function Dashboard() {
 
           <div className="view-controls">
 
-            <button type="button" title="Grid view">
+            <button
+              type="button"
+              title="Grid view"
+            >
               ▦
             </button>
 
-            <button type="button" title="List view">
+            <button
+              type="button"
+              title="List view"
+            >
               ☰
             </button>
 
-            <button type="button" title="Sort">
+            <button
+              type="button"
+              title="Sort"
+            >
               ⇅
             </button>
 
           </div>
-
         </div>
-
 
         {savedResumes.length === 0 ? (
 
           <div className="empty-resumes">
 
-            <h3>No saved resumes yet</h3>
+            <h3>
+              No saved resumes yet
+            </h3>
 
             <p>
               Create a resume and click
@@ -234,25 +269,30 @@ function Dashboard() {
                 key={savedResume.id}
               >
 
+                {/* Resume Thumbnail */}
                 <div className="resume-thumbnail">
 
                   <div className="thumbnail-line large"></div>
+
                   <div className="thumbnail-line"></div>
+
                   <div className="thumbnail-line"></div>
 
                   <div className="thumbnail-section"></div>
 
                   <div className="thumbnail-line"></div>
+
                   <div className="thumbnail-line short"></div>
 
                   <div className="thumbnail-section"></div>
 
                   <div className="thumbnail-line"></div>
+
                   <div className="thumbnail-line"></div>
 
                 </div>
 
-
+                {/* Resume Information */}
                 <div className="recent-resume-info">
 
                   <h3>
@@ -262,6 +302,7 @@ function Dashboard() {
 
                   <p>
                     Saved{" "}
+
                     {savedResume.updatedAt
                       ? new Date(
                           savedResume.updatedAt
@@ -277,6 +318,14 @@ function Dashboard() {
                   >
                     Open
                   </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleEditResume(savedResume)
+                    }
+                  >
+                    Edit
+                  </button>
 
                 </div>
 
@@ -290,8 +339,10 @@ function Dashboard() {
 
       </section>
 
+      {/* ==================================================
+          MOCK INTERVIEW
+      ================================================== */}
 
-      {/* Mock Interview */}
       <section className="dashboard-interview">
 
         <div>

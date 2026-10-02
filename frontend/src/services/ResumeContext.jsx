@@ -8,7 +8,7 @@ import {
 const ResumeContext = createContext();
 
 const createBlankResume = () => ({
-  id: Date.now().toString(),
+  id: crypto.randomUUID(),
   name: "",
   email: "",
   phone: "",
@@ -24,6 +24,32 @@ const createBlankResume = () => ({
   updatedAt: "",
 });
 
+const loadSavedResumes = () => {
+  const saved = localStorage.getItem("savedResumes");
+
+  try {
+    const resumes = saved ? JSON.parse(saved) : [];
+    if (!Array.isArray(resumes)) {
+      return [];
+    }
+
+    const usedIds = new Set();
+
+    return resumes.map((item) => {
+      let id = item.id ? String(item.id) : "";
+
+      if (!id || usedIds.has(id)) {
+        id = crypto.randomUUID();
+      }
+
+      usedIds.add(id);
+      return { ...item, id };
+    });
+  } catch {
+    return [];
+  }
+};
+
 export function ResumeProvider({ children }) {
   const [resume, setResume] = useState(() => {
     const saved = localStorage.getItem("currentResume");
@@ -37,15 +63,7 @@ export function ResumeProvider({ children }) {
     }
   });
 
-  const [savedResumes, setSavedResumes] = useState(() => {
-    const saved = localStorage.getItem("savedResumes");
-
-    try {
-      return saved ? JSON.parse(saved) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [savedResumes, setSavedResumes] = useState(loadSavedResumes);
 
   // Save current resume to browser storage
   useEffect(() => {

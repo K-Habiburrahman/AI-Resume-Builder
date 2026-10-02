@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { useResume } from "../services/ResumeContext";
 
-import { generateInterviewQuestions } from "../services/api";
+import {
+  generateInterviewQuestions,
+  importResume,
+} from "../services/api";
 
 function MockInterview() {
   const { resume, savedResumes } = useResume();
@@ -12,12 +15,14 @@ function MockInterview() {
   const [answer, setAnswer] = useState("");
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
   const [error, setError] = useState("");
 
   // Resume selected specifically for this interview
   const [selectedResume, setSelectedResume] = useState(null);
+  const resumeFileInput = useRef(null);
 
   /*
    * If there are 2 or more saved resumes, user must
@@ -30,13 +35,41 @@ function MockInterview() {
   const interviewResume =
     selectedResume || resume;
 
-  const canStartInterview =
-    interviewResume.skills?.trim() &&
-    interviewResume.certifications?.trim();
+  const canStartInterview = [
+    "summary",
+    "education",
+    "skills",
+    "projects",
+    "experience",
+    "certifications",
+  ].some((field) => interviewResume[field]?.trim());
 
   const selectResume = (resumeData) => {
     setSelectedResume(resumeData);
     setError("");
+  };
+
+  const handleResumeUpload = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError("");
+
+    try {
+      const result = await importResume(file);
+      if (!result.success) {
+        setError(result.message || "Could not import the resume.");
+        return;
+      }
+
+      setSelectedResume(result.resume);
+    } catch (error) {
+      setError(error.message || "Could not import the resume.");
+    } finally {
+      setUploading(false);
+      event.target.value = "";
+    }
   };
 
   const startInterview = async () => {
@@ -73,12 +106,32 @@ function MockInterview() {
       setFinished(false);
     } catch (error) {
       setError(
-        "Could not generate interview questions. Please make sure the backend is running."
+        error.message ||
+          "Could not generate interview questions. Please make sure the backend is running."
       );
     } finally {
       setLoading(false);
     }
   };
+
+  const resumeUploadControl = (
+    <>
+      <input
+        ref={resumeFileInput}
+        type="file"
+        accept=".pdf,.docx,.txt"
+        onChange={handleResumeUpload}
+        hidden
+      />
+      <button
+        type="button"
+        onClick={() => resumeFileInput.current?.click()}
+        disabled={uploading || loading}
+      >
+        {uploading ? "Importing Resume..." : "Upload Resume"}
+      </button>
+    </>
+  );
 
   const submitAnswer = () => {
     const updatedAnswers = [
@@ -121,8 +174,10 @@ function MockInterview() {
 
         <p>
           You have multiple saved resumes. Select the resume
-          you want to use for your mock interview.
+          you want to use, or upload another resume.
         </p>
+
+        {resumeUploadControl}
 
         <div className="interview-results">
           {savedResumes.map((item) => (
@@ -174,14 +229,11 @@ function MockInterview() {
         <h1>Mock Interview</h1>
 
         <p>
-          Practice a technical interview using the information
-          provided in your resume.
+          Upload a resume or use your current or saved resume. Gemini will
+          generate 10 questions based on its content.
         </p>
 
-        <p>
-          The interview will contain exactly{" "}
-          <strong>10 questions</strong>.
-        </p>
+        {resumeUploadControl}
 
         {selectedResume && (
           <div className="interview-requirements">
@@ -202,27 +254,11 @@ function MockInterview() {
         )}
 
         <div className="interview-requirements">
-          <h3>Before starting</h3>
-
+          <h3>Resume details</h3>
           <p>
-            Complete the following sections:
+            Include skills, projects, education, experience, or certifications
+            so the questions can be tailored to your resume.
           </p>
-
-          <ul>
-            <li>
-              Skills{" "}
-              {interviewResume.skills?.trim()
-                ? "✓"
-                : "✗"}
-            </li>
-
-            <li>
-              Certifications{" "}
-              {interviewResume.certifications?.trim()
-                ? "✓"
-                : "✗"}
-            </li>
-          </ul>
         </div>
 
         {!canStartInterview && (
@@ -240,7 +276,7 @@ function MockInterview() {
 
         <button
           onClick={startInterview}
-          disabled={loading || !canStartInterview}
+          disabled={loading || uploading || !canStartInterview}
         >
           {loading
             ? "Generating Questions..."

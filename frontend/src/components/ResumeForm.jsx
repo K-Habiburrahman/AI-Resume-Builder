@@ -94,7 +94,13 @@ function ResumeForm({ resume, setResume }) {
       }
 
 
-      setResume(result.resume);
+      setResume((previous) => ({
+        ...result.resume,
+        id: previous.id || crypto.randomUUID(),
+        template: previous.template || "blue",
+        saved: previous.saved || false,
+        updatedAt: previous.updatedAt || "",
+      }));
 
 
       setImportMessage(
