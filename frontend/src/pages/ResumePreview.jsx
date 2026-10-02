@@ -450,7 +450,6 @@ function ResumePreview({ showEditButton = true, resume: previewResume }) {
         border: "1px solid #111111",
         padding: "28px 30px",
         boxShadow: "none",
-        fontFamily: "Arial, sans-serif",
       }}
     >
       <header style={{ marginBottom: "18px" }}>
