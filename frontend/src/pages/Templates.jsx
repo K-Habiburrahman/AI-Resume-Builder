@@ -117,6 +117,107 @@ function Templates() {
           </button>
         </div>
 
+        {/* ATS FRIENDLY */}
+        <div className="template-card">
+          <div
+            className="template-card-preview"
+            style={{
+              background: "#ffffff",
+              border: "1px solid #111111",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "12px",
+              boxShadow: "none",
+            }}
+          >
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+              }}
+            >
+              <div
+                style={{
+                  width: "36%",
+                  height: "8px",
+                  background: "#111111",
+                  borderRadius: "999px",
+                }}
+              />
+              <div
+                style={{
+                  width: "72%",
+                  height: "6px",
+                  background: "#222222",
+                  borderRadius: "999px",
+                }}
+              />
+              <div
+                style={{
+                  width: "82%",
+                  height: "6px",
+                  background: "#444444",
+                  borderRadius: "999px",
+                }}
+              />
+              <div
+                style={{
+                  width: "52%",
+                  height: "6px",
+                  background: "#666666",
+                  borderRadius: "999px",
+                  marginTop: "4px",
+                }}
+              />
+              <div
+                style={{
+                  width: "100%",
+                  height: "1px",
+                  background: "#111111",
+                  margin: "6px 0",
+                }}
+              />
+              <div
+                style={{
+                  width: "60%",
+                  height: "6px",
+                  background: "#111111",
+                  borderRadius: "999px",
+                }}
+              />
+              <div
+                style={{
+                  width: "78%",
+                  height: "6px",
+                  background: "#333333",
+                  borderRadius: "999px",
+                }}
+              />
+              <div
+                style={{
+                  width: "68%",
+                  height: "6px",
+                  background: "#555555",
+                  borderRadius: "999px",
+                }}
+              />
+            </div>
+          </div>
+
+          <h3>ATS Friendly</h3>
+          <p>Clean, simple, and recruiter-friendly layout.</p>
+
+          <button
+            type="button"
+            onClick={() => selectTemplate("ats")}
+          >
+            Use Template
+          </button>
+        </div>
+
       </div>
     </div>
   );

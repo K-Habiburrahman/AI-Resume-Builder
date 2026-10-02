@@ -43,6 +43,10 @@ function ResumeBuilder() {
       return "White Chocolate";
     }
 
+    if (resume.template === "ats") {
+      return "ATS Friendly";
+    }
+
     return "Red-Violet";
   };
 
@@ -315,6 +319,128 @@ function ResumeBuilder() {
                     <span>2 Columns</span>
                     <span>Sidebar</span>
                     <span>Justified Text</span>
+                  </div>
+                </div>
+              </button>
+
+              {/* ================= ATS FRIENDLY ================= */}
+              <button
+                type="button"
+                className={`template-modal-option ${
+                  resume.template === "ats"
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() => changeTemplate("ats")}
+              >
+                <div
+                  className="template-card-preview"
+                  style={{
+                    background: "#ffffff",
+                    border: "1px solid #111111",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "12px",
+                    boxShadow: "none",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "36%",
+                        height: "8px",
+                        background: "#111111",
+                        borderRadius: "999px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "72%",
+                        height: "6px",
+                        background: "#222222",
+                        borderRadius: "999px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "82%",
+                        height: "6px",
+                        background: "#444444",
+                        borderRadius: "999px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "52%",
+                        height: "6px",
+                        background: "#666666",
+                        borderRadius: "999px",
+                        marginTop: "4px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "1px",
+                        background: "#111111",
+                        margin: "6px 0",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "60%",
+                        height: "6px",
+                        background: "#111111",
+                        borderRadius: "999px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "78%",
+                        height: "6px",
+                        background: "#333333",
+                        borderRadius: "999px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        width: "68%",
+                        height: "6px",
+                        background: "#555555",
+                        borderRadius: "999px",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="template-modal-option-info">
+                  <div>
+                    <strong>ATS Friendly</strong>
+
+                    {resume.template === "ats" && (
+                      <span className="template-selected-badge">
+                        Selected
+                      </span>
+                    )}
+                  </div>
+
+                  <p>
+                    Plain black-and-white layout built
+                    for clarity and recruiter readability.
+                  </p>
+
+                  <div className="template-features">
+                    <span>Simple</span>
+                    <span>Black & White</span>
+                    <span>ATS Safe</span>
                   </div>
                 </div>
               </button>

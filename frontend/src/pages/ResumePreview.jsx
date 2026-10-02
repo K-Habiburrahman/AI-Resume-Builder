@@ -400,6 +400,85 @@ function ResumePreview({ showEditButton = true, resume: previewResume }) {
     </div>
   );
 
+  const AtsTemplate = () => (
+    <div
+      className="resume-template"
+      style={{
+        background: "#ffffff",
+        color: "#111111",
+        border: "1px solid #111111",
+        padding: "28px 30px",
+        boxShadow: "none",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <header style={{ marginBottom: "18px" }}>
+        <h1 style={{ margin: 0, fontSize: "32px", fontWeight: 700, letterSpacing: "0.04em" }}>{name}</h1>
+        <p style={{ margin: "8px 0 0", fontSize: "13px", color: "#222222" }}>
+          {email} • {phone} • {location}
+        </p>
+      </header>
+
+      <div style={{ height: "1px", background: "#111111", margin: "12px 0 18px" }} />
+
+      <main>
+        {resume.summary && (
+          <section style={{ marginBottom: "18px" }}>
+            <h2 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Professional Summary</h2>
+            <p style={{ margin: 0, lineHeight: 1.6, fontSize: "14px" }}>{resume.summary}</p>
+          </section>
+        )}
+
+        {resume.experience && (
+          <section style={{ marginBottom: "18px" }}>
+            <h2 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Experience</h2>
+            <p style={{ margin: 0, lineHeight: 1.6, fontSize: "14px" }}>{resume.experience}</p>
+          </section>
+        )}
+
+        {resume.education && (
+          <section style={{ marginBottom: "18px" }}>
+            <h2 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Education</h2>
+            <p style={{ margin: 0, lineHeight: 1.6, fontSize: "14px" }}>{resume.education}</p>
+          </section>
+        )}
+
+        {resume.skills && (
+          <section style={{ marginBottom: "18px" }}>
+            <h2 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Skills</h2>
+            <ul style={{ margin: 0, paddingLeft: "18px", lineHeight: 1.8, fontSize: "14px" }}>
+              {getLines(resume.skills).map((line, index) => (
+                <li key={index}>{line}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {resume.projects && (
+          <section style={{ marginBottom: "18px" }}>
+            <h2 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Projects</h2>
+            <ul style={{ margin: 0, paddingLeft: "18px", lineHeight: 1.8, fontSize: "14px" }}>
+              {getLines(resume.projects).map((line, index) => (
+                <li key={index}>{line}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {resume.certifications && (
+          <section>
+            <h2 style={{ margin: 0, marginBottom: "8px", fontSize: "14px", textTransform: "uppercase", letterSpacing: "0.08em" }}>Certifications</h2>
+            <ul style={{ margin: 0, paddingLeft: "18px", lineHeight: 1.8, fontSize: "14px" }}>
+              {getLines(resume.certifications).map((line, index) => (
+                <li key={index}>{line}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </main>
+    </div>
+  );
+
   return (
     <div className="resume-preview-wrapper">
 
@@ -420,8 +499,11 @@ function ResumePreview({ showEditButton = true, resume: previewResume }) {
 
       {template === "purple" && <PurpleTemplate />}
 
+      {template === "ats" && <AtsTemplate />}
+
       {template !== "green" &&
-        template !== "purple" && (
+        template !== "purple" &&
+        template !== "ats" && (
           <BlueTemplate />
         )}
 
